@@ -137,3 +137,26 @@ return [type: registered]
 ### 2.语法分析
 语法分析的难点在于要解释每一段字符，即对token逐一处理组合为有意义的上下文，并解析。
 其思想与[计算器](https://github.com/djh-sudo/Calc)的例子很相似，但是在规模和复杂度上有扩展。
+* 递归解析过程
+一共涉及到的函数有7类，而[计算器](https://github.com/djh-sudo/Calc)只有`2，3，4`这三种。
+1. 语句块`statement`
+2. 表达式`expression`
+3. `term`
+4. 因子`factor`
+5. 布尔表达式`bool_expression`
+6. 逻辑与`AND`
+7. 逻辑或`OR`
+解析过程采用递归下降，为每一个非终结符制定一个解析规则，直到全部被解析完成。
+```
+1. statement-> {statement}|expression|function
+类似于if else while for def return 这样的语句都是语句块，需要递归解析
+
+2. expression-> term +- term|var(number)
+表达式，赋值运算，bool运算
+
+3. term-> factor */ factor|var(number)
+由于有优先级，所以先*/，后+-
+
+4. factor-> var(number)|(expression)|function
+最小单位为factor，可以是一个数字(变量)，也可以是(expression)表达式，也可以是一个函数调用
+```

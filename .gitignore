@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+*.js linguist-language=c++
+*.css linguist-language=c++
+*.html linguist-language=c++

@@ -25,14 +25,11 @@
 				else return;
 			}                                              //判断token属于那种类型，每一种类型转移到对应状态处理
 			else if (current_token == "+") state = 1;
-			else if (current_token == "-") state = 2;
 			else if (current_token == "*") state = 3;
 			else if (current_token == "/") state = 4;
-			else if (current_token == "%") state = 5;
-		  ...
+		  ...	...
 			else if (is_alpha(current_token)) state = 23;     //token中包含字母或者下划线
-			else if (is_num(current_token)) state = 24;       //token为纯数字
-			else if (current_token == ",") state = 30;        //token为逗号
+		...	...
 			else state = 99;                                  //其余状态识别为非法字符
 			break;
 		}
@@ -47,18 +44,6 @@
 			else {                                             //+运算符
 				state = 0;                                 //恢复到默认状态0
 				return;                                    //返回
-			}
-		}
-		case 2: {                                                //匹配到-
-			sys = OPERATOR;
-			if (*src == '-') {                                //匹配到两个-，自减操作
-				current_token = "--";
-				src++;
-				state = 0;
-			}
-			else {                                             //-运算符
-				state = 0;
-				return;
 			}
 		}
 		case 3: {                                               //匹配到*
@@ -82,8 +67,7 @@
 			}
 			break;
 		}
-	...
-
+	...	...
 		case 24: {
 			if (is_num(*src)) {
 				current_token += *src;
@@ -119,11 +103,9 @@
 //将下列文本以字符串形式输入进行测试
 int main(){
 a = 2021;
-if(a!=2020){
-print("hello,world!");//print hello-world!
-}
+str ="hello,word!";
+print(str);//print hello-world
 return 0;
-}
 }
 ```
 测试结果为
@@ -137,19 +119,15 @@ a [type: ID]
 = [type: operator]
 2021 [type: number]
 ; [type: registered]
-if [type: registered]
-( [type: registered]
-a [type: ID]
-!= [type: operator]
-2020 [type: number]
-) [type: registered]
-{ [type: registered]
+str [type: ID]
+= [type: operator]
+"hello,word!" [type: string]
+; [type: registered]
 print [type: ID]
 ( [type: registered]
-"hello,world!" [type: string]
+str [type: ID]
 ) [type: registered]
 ; [type: registered]
-} [type: registered]
 return [type: registered]
 0 [type: number]
 ; [type: registered]

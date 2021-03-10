@@ -114,3 +114,48 @@
 		}
 	}
  ```
+词法分析最后的效果就是，将输入字符串拆分为有意义字符，测试案例如下
+```C
+//将下列文本以字符串形式输入进行测试
+int main(){
+a = 2021;
+if(a!=2020){
+print("hello,world!");//print hello-world!
+}
+return 0;
+}
+}
+```
+测试结果为
+```C
+int [type: ID]
+main [type: ID]
+( [type: registered]
+) [type: registered]
+{ [type: registered]
+a [type: ID]
+= [type: operator]
+2021 [type: number]
+; [type: registered]
+if [type: registered]
+( [type: registered]
+a [type: ID]
+!= [type: operator]
+2020 [type: number]
+) [type: registered]
+{ [type: registered]
+print [type: ID]
+( [type: registered]
+"hello,world!" [type: string]
+) [type: registered]
+; [type: registered]
+} [type: registered]
+return [type: registered]
+0 [type: number]
+; [type: registered]
+} [type: registered]
+```
+词法分析去掉了所有无意义的字符，比如注释，换行，空格等等，并为每一个字符打上了标签，其中变量类型统一为`ID`,数字为`number`，字符串为`string`,操作符为`operator`,其它合法字符为`registered`。
+### 2.语法分析
+语法分析的难点在于要解释每一段字符，即对token逐一处理组合为有意义的上下文，并解析。
+其思想与计算器的例子很相似，但是在规模和复杂度上有扩展[]()

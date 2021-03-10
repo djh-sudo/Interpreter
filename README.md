@@ -7,7 +7,7 @@
 在记事本中编写一个简单的运算过程
 ```C
 def Fabonaci(n){
-	if(n==1||n==0){
+	if(n == 1 || n == 0){
 		return 1;
 	}
 	else {
@@ -16,7 +16,6 @@ def Fabonaci(n){
 }
 
 def foo(){
-	a=0;
 	i=1;
 	for(i=1;i<10;i=i+1;){
 		c = Fabonaci(i);

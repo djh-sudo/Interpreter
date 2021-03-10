@@ -160,3 +160,105 @@ return [type: registered]
 4. factor-> var(number)|(expression)|function
 最小单位为factor，可以是一个数字(变量)，也可以是(expression)表达式，也可以是一个函数调用
 ```
+由于`C++`源代码有些冗长，这里放上伪代码
+```python
+
+double term(){
+	t1 = factor();
+	while(token is '*' or '/'){
+		t1 = * / factor();
+	}
+	return t1;
+}
+
+double factor(){
+	if(token is '(')
+		f1 = expression();
+	else if token is number
+		f1 = number;
+	else if token is var
+		f1 = var.value();
+	else if token is function
+		f1 = function();
+	return f1;
+}
+
+double expression(){
+	t1 = term();
+	while(token is '+' or '-'){
+		t1 = t1 ± term();
+	}
+	return t1;
+}
+
+int AND(){
+	t1 = expression_bool();
+	while(token is '&&'){
+		t1 = t1 && expression_bool();
+	}
+	return t1;
+}
+
+int OR(){
+	t1 = expression_bool();
+	while(token is '||'){
+		t1 = t1 || expression_bool();
+	}
+	return t1;
+}
+
+int expression_bool(){
+	if token is '('{
+		t1 = OR();
+		return t1;
+	}
+	t1 = (int)expression();
+	else if token is '>'
+		return t1 > expression();
+	else if ...
+	...	...
+	return 0;
+}
+
+double statement(){
+	if token is '{' ...
+	else if token is 'if' ...
+	else if token is number(var) ...
+	else if token is 'def' ...
+	else if token is 'return' ...
+	else if token is 'for' ...
+	...
+	return 0;
+}
+```
+整个核心的思想就是上面的伪代码部分，实际编写程序中，还需要注意很多安全问题，比如指针知否越界，除数为0时需要抛出异常，字符不匹配也需要抛出异常，所以为了统一管理，我们遍写了一个异常接管函数
+```C
+void syntaxError(int k, long int l = 0,string s = "") {
+	switch (k)
+	{
+	case 1: {//非法字符
+		cout << "Error [Line:" << line << "] " << s << " is invalid symbol." << endl;
+		exit(1);
+	}
+	case 2: {//多行注释缺少边界
+		cout << "Error [Line:" << line << "] Multi-line comments are missing boundaries." << endl;
+		exit(1);
+	}
+	case 3: {//字符串缺少边界
+		cout << "Warning [Line:" << line << "] String is missing boundaries." << endl;
+		exit(1);
+	}
+	...	...
+	case 11: {//形式参数与实际参数不匹配
+		cout << "Error [Line:" << line << "] The formal and actual parameters do not match." << endl;
+		exit(1);
+	}
+	case 12: {//系统函数不允许重载
+		cout << "Error [Line:" << line << "] Can't reload the registered function " << s << endl;
+		exit(1);
+	}
+	default:
+		break;
+	}
+}
+```

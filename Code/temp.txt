@@ -1,0 +1,22 @@
+def Fabonaci(n){
+if(n==1||n==0){
+return 1;
+}
+else {
+return (Fabonaci(n-1)+Fabonaci(n-2));
+}
+}
+
+def foo(){
+a=0;
+b=0;
+i=1;
+print("pls input the number you want to calc:","\n");
+input(a);
+for(i=1;i<a;i=i+1;){//输出前17个斐波那契数列值
+c = Fabonaci(i);
+print("Fabonaci (",i,") is ",c,"\n");
+}
+return 0;
+}
+foo();

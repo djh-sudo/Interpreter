@@ -30,6 +30,9 @@ foo();
 
 ![100](https://github.com/djh-sudo/Interpreter/blob/main/res.png)
 
+当递归深度提升，解释的速度更不上时，明显看到输出速度减缓。
+
+![300](https://github.com/djh-sudo/Interpreter/blob/main/example.gif)
 这里实现了函数的嵌套调用，函数不定传参，以及输出函数不定传参，不支持指针类型，目前只支持数字，字符串类型。
 
 下面我们简单开发一个解释器，了解解释器的工作原理是什么，大题需要经过哪一些流程。解释器主要部分为词法分析器和语法分析器，其次就是输出输出的接口。

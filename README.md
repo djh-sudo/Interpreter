@@ -40,28 +40,28 @@ foo();
 词法分析的实质是将输入的字符串流拆分为一个个有意义`token`,并为他们打上标签，比如那些是变量，那些是保留字等等。整个过程相对简单，稍有些繁琐。实现思路可以分为两类，一类用`if else`语句块，逐个判断，一类用`switch case`有限状态机的思想,下面是第2种方式的`C++代码(节选)`。
  ```C
  void nextToken() {
-	if (*src != 0) {                                           //检查指针src边界
-		current_token = *src;                                 //current_token表示当前的token
-		src++;                                                //src为current_token的下一个字符
+	if (*src != 0) {                                           	//检查指针src边界
+		current_token = *src;                                 	//current_token表示当前的token
+		src++;                                                	//src为current_token的下一个字符
 	}
 	while (*src != 0 && current_token != "") {
-		switch (state)                                        //根据state状态进行转换，state默认为0
+		switch (state)                                        	//根据state状态进行转换，state默认为0
 		{
-		case 0: {                                             //跳过所有的空格和制表符
+		case 0: {                                             	//跳过所有的空格和制表符
 			if (current_token == "\t" || current_token == " ") {
 				state = 0;
 				current_token = *src;
 				if (*src != 0)
 					src++;
 				else return;
-			}                                              //判断token属于那种类型，每一种类型转移到对应状态处理
+			}                                              	//判断token属于那种类型，每一种类型转移到对应状态处理
 			else if (current_token == "+") state = 1;
 			else if (current_token == "*") state = 3;
 			else if (current_token == "/") state = 4;
 		  ...	...
-			else if (is_alpha(current_token)) state = 23;     //token中包含字母或者下划线
+			else if (is_alpha(current_token)) state = 23;    //token中包含字母或者下划线
 		...	...
-			else state = 99;                                  //其余状态识别为非法字符
+			else state = 99;                                 //其余状态识别为非法字符
 			break;
 		}
 		case 1: {                                                 //匹配到 +
@@ -78,20 +78,20 @@ foo();
 			}
 		}
 		case 3: {                                               //匹配到*
-			sys = OPERATOR;                                  //识别为操作符
-			state = 0;                                       //恢复默认状态0
-			return;                                          //返回
+			sys = OPERATOR;                                 //识别为操作符
+			state = 0;                                      //恢复默认状态0
+			return;                                         //返回
 		}
 		case 4: {                                               //匹配到/
-			if (*src == '/') {                               //单行注释
-				state = 25;                               //跳转到25处理单行注释
+			if (*src == '/') {                              //单行注释
+				state = 25;                             //跳转到25处理单行注释
 				src++;
 			}
-			else if (*src == '*') {                          //多行注释
-				state = 26;                               //跳转到状态26处理多行注释
+			else if (*src == '*') {                         //多行注释
+				state = 26;                             //跳转到状态26处理多行注释
 				src++;
 			}
-			else {                                            //除法运算符
+			else {                                          //除法运算符
 				sys = OPERATOR;
 				state = 0;
 				return;

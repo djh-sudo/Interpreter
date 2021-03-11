@@ -96,7 +96,7 @@ set<string>registeredFunction;		        //注册函数表
 在这个类里面，主要存放每个符号的信息，比如名称`name`，作用范围`level`,以及变量值`value`等，事实上，每当解析器遇到一个字符，都会将其装入字符表中，以便后续用到时查找是否存在，否则会报错。
 * 目前支持的语法规则
 ### 1 变量
-变量无需定义，只需要在声明时初始化即可，例如`a = 0;`,目前支持两类变量，一类是数字，一类是字符串，如`a = "hello world!";`
+变量无需定义，只需要在声明时初始化即可，例如`a = 0;`,目前支持两类变量，一类是数字，一类是字符串，如`a = "hello world!";`。
 ### 2 语句
 语句支持 `if(){}`,`else(){}`,`while(){}`,`for(;;;)`,注意`for`循环不同于C语言，需要在每个表达式后面加上`;`,其余表达式不可以省略`{}`。
 ### 3 函数定义
@@ -104,7 +104,9 @@ set<string>registeredFunction;		        //注册函数表
 
 系统保留了3个注册函数，分别是`print()`,`input()`,`exit()`,分别是输出，输入，以及退出程序。
 
-其中`print()`函数输出只需要用`,`间隔即可，可以有多个参数，`input()`,同理，用`,`间隔等待输入的值
+其中`print()`函数输出只需要用`,`间隔即可，可以有多个参数，`input()`,同理，用`,`间隔等待输入的值。
+
+当你发现程序运行有误时，可以根据提示行号，检查对应行号的语法。
 
 `bug`: 
 (1) `print()`函数输出换行符时，只能够单独使用"\n",同时不支持中文编码，最好使用英文。
@@ -113,11 +115,11 @@ set<string>registeredFunction;		        //注册函数表
 ### for example:
 ```C
 def Fabonaci(n){
-	if(n==1||n==0){
+	if(n == 1 || n == 0){
 		return 1;
 	}
 	else {
-	return (Fabonaci(n-1)+Fabonaci(n-2));
+		return (Fabonaci(n-1)+Fabonaci(n-2));
 	}
 }
 
@@ -127,7 +129,7 @@ def foo(){
 	i=1;
 	print("pls input the number you want to calc:","\n");
 	input(a);
-	for(i=1;i<a;i=i+1;){//输出前a-1个斐波那契数列值
+	for(i=1;i < a;i = i + 1;){//输出前a-1个斐波那契数列值
 		c = Fabonaci(i);
 	print("Fabonaci (",i,") is ",c,"\n");
 	}
@@ -136,4 +138,4 @@ def foo(){
 foo();
 ```
 最后，可以根据个人需要对源码进行修改和编辑。
-### Thanks for watching ...
+## Thanks for watching ...

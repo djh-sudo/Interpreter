@@ -17,15 +17,15 @@ bool is_num(char c);						//判断字符c是否只包含数字(重载)
 /*******************************关键算法函数*****************************/
 void nextToken();						//修改current_token的值
 void checkMatch(string s);					//检查字符是否匹配并获取下一个token
-double expression();						 //计算表达式的值
-double factor();					         //计算因子的值
+double expression();						//计算表达式的值
+double factor();					        //计算因子的值
 double term();
 double function(vector<string>pre);			        //计算函数的值
 int expression_bool();						//计算bool类型的值
 int AND();
 int OR();
-void Skip();						//跳过无需执行的语句块
-double statement();					//解析语句块
+void Skip();							//跳过无需执行的语句块
+double statement();						//解析语句块
 /*******************************符号类*****************************/
 typedef class SYM {
 private:

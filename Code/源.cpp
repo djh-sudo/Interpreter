@@ -82,7 +82,7 @@ double function(vector<string>pre);			//计算函数的值
 int expression_bool();						//计算bool类型的值
 int AND();
 int OR();
-void Skip();								//跳过无需执行的语句块
+char* Skip();								//跳过无需执行的语句块
 double statement();							//解析语句块
 
 /*******************************关键字类型*****************************/
@@ -98,6 +98,7 @@ int sys = -1;						//关键字类型
 double return_val = 0;				//函数返回值
 vector<Symbol>symbolTab;			//符号表
 set<string>registeredFunction;		//注册函数表
+char* ending;						//函数尾部，避免没有return语句陷入死循环
 /*******************************辅助函数模块*****************************/
 void inicializeFunction() {										//初始化
 	registeredFunction.clear();
@@ -180,6 +181,9 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
 	case 12: {
 		cout << "Error [Line:" << line << "] Can't reload the registered function " << s << endl;
 		exit(1);
+	}
+	case 13: {
+		cout << "Warning [Line:" << line << "] function with no statement 'return'. "  << endl;
 	}
 	default:
 		break;
@@ -696,6 +700,9 @@ double factor() {
 				if (current_token == ",")
 					checkMatch(",");
 			}
+			if (current_token != ")") {
+				syntaxError(5, line, ")");
+			}
 			char* start = src;
 			src = symbolTab[id].getLocation();
 			long int lineTemp = line;
@@ -719,7 +726,7 @@ double expression() {
 			checkMatch("+");
 			t1 = t1 + term();
 		}
-		else {
+		else if(current_token=="-"){
 			checkMatch("-");
 			t1 = t1 - term();
 		}
@@ -816,20 +823,26 @@ int OR() {
 	return temp;
 }
 
-void Skip() {//跳过表达式，对while/if-else
+char* Skip() {//跳过表达式，对while/if-else
+	char* temp = (char*)malloc(sizeof(char));
 	if (current_token == "{") {
 		current_token = *(src++);
 		if (current_token == "\n")
 			line++;
 		int count = 0;
-		while (current_token != "" && !(current_token == "}" && count == 0)) {
+		while (*src != 0 && !(current_token == "}" && count == 0)) {
 			if (current_token == "}") count++;
 			if (current_token == "{")count--;
-			current_token = *(src++);
+			if (*src == '}') {
+				temp = src;
+			}
+			current_token = *src++;
 			if (current_token == "\n")
 				line++;
 		}
-	}checkMatch("}");
+	}
+	checkMatch("}");
+	return temp;
 }
 
 double statement() {//块
@@ -904,7 +917,7 @@ double statement() {//块
 				symbolTab[id].modifyType("string");
 				checkMatch(current_token);
 			}
-			else if (sys == ID || sys == NUM) {
+			else {
 				symbolTab[id].modifyType("number");
 				symbolTab[id].modifyValue(to_string(expression()));
 			}
@@ -937,7 +950,8 @@ double statement() {//块
 				}
 				symbolTab[id].modifyValue(to_string(count));//函数名的value存储对应形参的个数
 				checkMatch(")");
-				Skip();//函数申明跳过不执行
+				ending = Skip();//函数申明跳过不执行
+
 			}
 			else syntaxError(8, line, current_token);
 		}
@@ -1087,10 +1101,12 @@ double function(vector<string>pre) {
 		checkMatch(")");
 		char* start = src;//保存src指针
 		nextToken();//修改current_token
-		while (current_token != "return" && *src != 0) {
+		while (current_token != "return" && *src != 0 && (src - 1) != ending) {
 			statement();//调用语句
 		}
-		statement();
+		if (current_token == "return")
+			statement();
+		else syntaxError(13, line);
 		src = start;//恢复指针
 		nextToken();//恢复current_token
 		for (vector<Symbol>::iterator it = symbolTab.begin(); it != symbolTab.end();) {

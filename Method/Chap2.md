@@ -28,6 +28,73 @@ bool Compare(Symbol s1, Symbol s2) {//比较s1和s2是否属于同一类型变�
 ```
 2.`is_contain`函数判断，目前符号表`vector<Symbol>symbolTab`中是否已经包含了`s1`这个符号。
 
-3.`int Find`函数返回当前作用域下，查找`name`的下标，如果没有，则返回`-1`。
+3.`Find`函数返回当前作用域下，查找`name`的下标，如果没有，则返回`-1`。
 
+4.`syntaxError`是一个异常接管函数，接管解释过程中出现的各种异常
+
+```
+void syntaxError(int k, long int l,string s) {//错误接管函数
+	switch (k)
+	{
+	case 1: {
+		cout << "Error [Line:" << line << "] " << s << " is invalid symbol." << endl;
+		exit(1);
+	}
+	case 2: {// 多行注释缺少边界
+		cout << "Error [Line:" << line << "] Multi-line comments are missing boundaries." << endl;
+		exit(1);
+	}
+	case 3: {// 字符串缺少边界
+		cout << "Warning [Line:" << line << "] String is missing boundaries." << endl;
+		exit(1);
+	}
+	case 4: {
+		//注释不符合规范
+		cout << "Error [Line:" << line << "] The comment does not meet the specification." << endl;
+		//exit(1);
+	}
+	case 5: {//缺少匹配符号
+		cout << "Error [Line:" << line << "] Expected the symbol '" << s << "',but not have." << endl;
+		exit(1);
+	}
+	case 6: {//除数为0
+		cout << "Error [Line:" << line << "] Divisor cannot be 0." << endl;
+		exit(1);
+	}
+	case 7: {//重定义
+		cout << "Error [Line:" << line << "] " << s << " defination is duplicated!" << endl;
+		exit(1);
+	}
+	case 8:
+	{//找不到定义
+		cout << "Error [Line:" << line << "] function '" << s << "' is not defined!" << endl;
+		exit(1);
+	//找不到函数def
+	}
+	case 9: {//变量未初始化
+		cout << "Error [Line:" << line << "] " << s << " is not inicialized or can't find." << endl;
+		exit(1);
+	}
+	case 10: {//变量未使用
+		cout << "Warning [Line:" << line << "] " << s << " is not used." << endl;
+	}
+	case 11: {//函数形参与实参不匹配
+		cout << "Error [Line:" << line << "] The formal and actual parameters do not match." << endl;
+		exit(1);
+	}
+	case 12: {//系统函数不允许重载
+		cout << "Error [Line:" << line << "] Can't reload the registered function " << s << endl;
+		exit(1);
+	}
+	case 13: {//缺少return
+		cout << "Warning [Line:" << line << "] function with no statement 'return'. "  << endl;
+	}
+	default:
+		break;
+	}
+}
+```
+5.`inicializeFunction`初始化自己编写的函数
+
+6.`trim`去掉字符串一头一尾字符
 # To be continue...

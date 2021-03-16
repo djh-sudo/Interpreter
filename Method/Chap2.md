@@ -30,9 +30,9 @@ bool Compare(Symbol s1, Symbol s2) {//比较s1和s2是否属于同一类型变�
 
 3.`Find`函数返回当前作用域下，查找`name`的下标，如果没有，则返回`-1`。
 
-4.`syntaxError`是一个异常接管函数，接管解释过程中出现的各种异常
+4.`syntaxError`是一个异常接管函数，接管解释过程中出现的各种异常，这里我们定义了大概13种错误。
 
-```
+```C
 void syntaxError(int k, long int l,string s) {//错误接管函数
 	switch (k)
 	{

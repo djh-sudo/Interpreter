@@ -141,3 +141,5 @@ foo();
 ```
 最后，可以根据个人需要对源码进行修改和编辑。
 ## Thanks for watching ...
+
+### [下一章(辅助函数)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap2.md)

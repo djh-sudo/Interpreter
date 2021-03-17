@@ -97,4 +97,7 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
 5.`inicializeFunction`初始化自己编写的函数
 
 6.`trim`去掉字符串一头一尾字符
-# To be continue...
+
+### [上一章(全局总览)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap1.md)
+
+### [下一章(词法分析器)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap3.md)

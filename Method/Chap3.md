@@ -30,37 +30,37 @@ void nextToken() {
 					src++;
 				else return;
 			}
-			else if (current_token == "+") state = 1;//判断当前字符是否为+
-			else if (current_token == "-") state = 2;//判断当前字符是否为-
-			else if (current_token == "*") state = 3;//判断当前字符是否为*
-			else if (current_token == "/") state = 4;//判断当前字符是否为/
-			else if (current_token == "%") state = 5;//判断当前字符是否为%
-			else if (current_token == "<") state = 6;//判断当前字符是否为<
-			else if (current_token == ">") state = 7;//判断当前字符是否为>
-			else if (current_token == "=") state = 8;//判断当前字符是否为=
-			else if (current_token == "[") state = 9;//判断当前字符是否为[
-			else if (current_token == "]") state = 10;//判断当前字符是否为]
-			else if (current_token == "(") state = 11;//判断当前字符是否为(
-			else if (current_token == ")") state = 12;//判断当前字符是否为)
-			else if (current_token == "{") state = 13;//判断当前字符是否为{
-			else if (current_token == "}") state = 14;//判断当前字符是否为}
-			else if (current_token == "\n") state = 15;//判断当前字符是否为换行
-			else if (current_token == "&") state = 16;//判断当前字符是否为&
-			else if (current_token == "^") state = 17;//判断当前字符是否为^
-			else if (current_token == "#") state = 18;//判断当前字符是否为#
-			else if (current_token == "|") state = 19;//判断当前字符是否为|
-			else if (current_token == "\"") state = 20;//判断当前字符是否为\
-			else if (current_token == ";") state = 21;//判断当前字符是否为;
-			else if (current_token == "!") state = 22;//判断当前字符是否为!
-			else if (is_alpha(current_token)) state = 23;//判断当前字符是否为字母
-			else if (is_num(current_token)) state = 24;//判断当前字符是否为数字
-			else if (current_token == ",") state = 30;//判断当前字符是否为，
-			else state = 99;//异常字符
+			else if (current_token == "+") state = 1;		//判断当前字符是否为+
+			else if (current_token == "-") state = 2;		//判断当前字符是否为-
+			else if (current_token == "*") state = 3;		//判断当前字符是否为*
+			else if (current_token == "/") state = 4;		//判断当前字符是否为/
+			else if (current_token == "%") state = 5;		//判断当前字符是否为%
+			else if (current_token == "<") state = 6;		//判断当前字符是否为<
+			else if (current_token == ">") state = 7;		//判断当前字符是否为>
+			else if (current_token == "=") state = 8;		//判断当前字符是否为=
+			else if (current_token == "[") state = 9;		//判断当前字符是否为[
+			else if (current_token == "]") state = 10;		//判断当前字符是否为]
+			else if (current_token == "(") state = 11;		//判断当前字符是否为(
+			else if (current_token == ")") state = 12;		//判断当前字符是否为)
+			else if (current_token == "{") state = 13;		//判断当前字符是否为{
+			else if (current_token == "}") state = 14;		//判断当前字符是否为}
+			else if (current_token == "\n") state = 15;		//判断当前字符是否为换行
+			else if (current_token == "&") state = 16;		//判断当前字符是否为&
+			else if (current_token == "^") state = 17;		//判断当前字符是否为^
+			else if (current_token == "#") state = 18;		//判断当前字符是否为#
+			else if (current_token == "|") state = 19;		//判断当前字符是否为|
+			else if (current_token == "\"") state = 20;		//判断当前字符是否为\
+			else if (current_token == ";") state = 21;		//判断当前字符是否为;
+			else if (current_token == "!") state = 22;		//判断当前字符是否为!
+			else if (is_alpha(current_token)) state = 23;		//判断当前字符是否为字母
+			else if (is_num(current_token)) state = 24;		//判断当前字符是否为数字
+			else if (current_token == ",") state = 30;		//判断当前字符是否为，
+			else state = 99;					//异常字符
 			break;
 		}
-		case 1: {// 匹配到 +
+		case 1: {							// 匹配到 +
 			sys = OPERATOR;
-			if (*src == '+') {//自增操作
+			if (*src == '+') {					//自增操作
 				current_token = "++";
 				src++;
 				state = 0;
@@ -73,7 +73,7 @@ void nextToken() {
 		}
 		case 2: {
 			sys = OPERATOR;
-			if (*src == '-') {//自减操作
+			if (*src == '-') {					//自减操作
 				current_token = "--";
 				src++;
 				state = 0;
@@ -312,10 +312,10 @@ void nextToken() {
 						sys = ID_FUN;
 						current_type = "";
 						Symbol temp(current_token, current_type,0);
-						temp.modifyLocation((src-current_token.size()));//保存函数名对应的指针
+						temp.modifyLocation((src-current_token.size()));	//保存函数名对应的指针
 						temp.modifyLine(line);
-						if (id != -1)
-							 syntaxError(7,line,current_token);//函数定义重名
+						if (id != -1)	
+							 syntaxError(7,line,current_token);		//函数定义重名
 						else symbolTab.push_back(temp);
 					}
 					else {
@@ -376,21 +376,21 @@ void nextToken() {
 			}
 		}
 		case 99: {
-			syntaxError(1, line,current_token);//非法字符
+			syntaxError(1, line,current_token);	//非法字符
 			break;
 		}
 		default:
 			break;
 		}
-	}
+	}							//上述匹配结束，若state不为0，说明存在异常
 	switch (state)
 	{
 	case 27: {
-		syntaxError(2,line);//多行注释缺少边界
+		syntaxError(2,line);				//多行注释缺少边界
 		break;
 	}
 	case 20: {
-		syntaxError(3, line);//字符串缺少边界
+		syntaxError(3, line);				//字符串缺少边界
 	}
 	default:
 		break;

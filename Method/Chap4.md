@@ -8,78 +8,78 @@
 double term() {
 	double t1 = 0; 
 	double t2 = 0;
-	t1 = factor();                                                                //获取第一操作数
+	t1 = factor();                                                               			//获取第一操作数
 	while (current_token == "*" || current_token == "/"||current_token=="%") {
 		if (current_token == "*") {
 			checkMatch("*");
-			t2 = factor();                                                            //获取第2操作数
+			t2 = factor();                                                           	//获取第2操作数
 			t1 = t1 * t2;
 		}
 		else if (current_token == "/") {
 			checkMatch("/");
-			t2 = factor();                                                            //获取第2操作数
-			if (t2 == 0)                                                              //除数不可以为0
-				syntaxError(6, line);                                                   //抛出异常
+			t2 = factor();                                                            	//获取第2操作数
+			if (t2 == 0)                                                             	//除数不可以为0
+				syntaxError(6, line);                                             	//抛出异常
 			t1 = t1 / t2;
 		}
 		else {
 			checkMatch("%");
-			t2 = factor();                                                            //获取第2操作数
-			if (t2 == 0)                                                              //除数不可以为0
-				syntaxError(6, line);                                                   //抛出异常
+			t2 = factor();                                                            	//获取第2操作数
+			if (t2 == 0)                                                              	//除数不可以为0
+				syntaxError(6, line);                                             	//抛出异常
 			t1 = t1 / t2;
 		}
 	}
-	return t1;                                                                    //返回计算结果
+	return t1;											//返回计算结果
 }
 ```C
 * 2.`factor`函数
 对于各个因子进行处理，这里包括类型有`(expression)|number|function|var`
 ```
 	double f1 = 0;
-	if (current_token == "(") {                                                   //匹配到左括号
+	if (current_token == "(") {								//匹配到左括号
 		checkMatch("(");
-		f1 = expression();                                                          //进行表达式求值
-		checkMatch(")");                                                            //检查右括号是否缺失
+		f1 = expression();								//进行表达式求值
+		checkMatch(")");								//检查右括号是否缺失
 	}
-	else if (sys == NUM) {                                                        //匹配到数字
+	else if (sys == NUM) {									//匹配到数字
 		f1 = atof(current_token.c_str());
 		checkMatch(current_token);
 	}
-	int id = Find(current_token, current_level);                                  //判断是否为变量名
-	if (sys == ID && id != -1) {                                                  //在symbolTab中找到变量名
+	int id = Find(current_token, current_level);						//判断是否为变量名
+	if (sys == ID && id != -1) {								//在symbolTab中找到变量名
 		if (symbolTab[id].getType() != "function_name") {
 			Symbol temp = symbolTab[id];
-			if (temp.getType() == "void") {                                           //变量未被初始化或者找不到变量
+			if (temp.getType() == "void") {						//变量未被初始化或者找不到变量
 				string name = temp.getName();
-				syntaxError(9, line, name);                                             //抛出未初始化异常
+				syntaxError(9, line, name);					//抛出未初始化异常
 			}
-			string s = temp.get_value();                                              //获取变量名的值
+			string s = temp.get_value();						//获取变量名的值
 			f1 = atof(s.c_str());
 			checkMatch(current_token);
 		}
-		else {                                                                       //函数名
+		else {                                                                       	//函数名
 			checkMatch(current_token);
 			checkMatch("(");
 			vector<string>pra;
 			pra.clear();
 			while (current_token != ")" && *src != 0) {
-				pra.push_back(to_string(expression()));                                   //保存实参
-				if (current_token == ",")                                                 //实参用逗号分割
+				pra.push_back(to_string(expression()));				//保存实参
+				if (current_token == ",")					//实参用逗号分割
 					checkMatch(",");
 			}
-			if (current_token != ")") {                                                 //函数的右括号是否缺失
-				syntaxError(5, line, ")");                                                //抛出异常
+			if (current_token != ")") {						//函数的右括号是否缺失
+				syntaxError(5, line, ")");                                 	//抛出异常
 			}
 			char* start = src;
-			src = symbolTab[id].getLocation();                                          //保存函数的位置指针
-			long int lineTemp = line;                                                   //保存函数的所在行号
-			line = symbolTab[id].get_Line();                                            //修改记录当前行号
+			src = symbolTab[id].getLocation();					//保存函数的位置指针
+			long int lineTemp = line;						//保存函数的所在行号
+			line = symbolTab[id].get_Line();					//修改记录当前行号
 			nextToken();
-			f1 = function(pra);                                                          //调用函数
-			pra.clear();                                                                 //清空实参表
-			src = start;                                                                 //恢复指针
-			line = lineTemp;                                                             //恢复行号
+			f1 = function(pra);							//调用函数
+			pra.clear();								//清空实参表
+			src = start;								//恢复指针
+			line = lineTemp;							//恢复行号
 			nextToken();
 		}
 	}

@@ -1,5 +1,5 @@
-# Part 3
-# 语法分析器(`Parser`)
+# Part 3-1
+# 语法分析器(`Parser`)之表达式求值
 对于词法分析器(`Lexical analyzer`)给出的一个个`token`,语法分析器要做的就是分析其语义，用一套解释规则去解释我们书写的程序
 
 * 1.`term`函数
@@ -85,3 +85,27 @@ double term() {
 	}
 	return f1;
 ```
+* 3.`expression`函数
+处理`+`,`-`两类运算
+```C
+double expression() {
+	double t1 = term();
+	while (current_token == "+" || current_token == "-") {
+		if (current_token == "+") {
+			checkMatch("+");
+			t1 = t1 + term();
+		}
+		else if(current_token=="-"){
+			checkMatch("-");
+			t1 = t1 - term();
+		}
+	}
+	return t1;
+}
+```
+这三个函数构成了表达式求值的全部思路，与[计算器](https://github.com/djh-sudo/Calc)是类似的。
+后续章节讲继续解释`bool`表达式的求值以及语句块的执行过程。
+
+### [上一章(词法分析器)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap3.md)
+
+### [下一章(语法分析器3-2)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap4.md)

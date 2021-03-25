@@ -397,3 +397,7 @@ void nextToken() {
 	}
 }
 ```
+
+### [上一章(辅助函数简介)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap2.md)
+
+### [下一章(语法分析器)](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap4.md)

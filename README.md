@@ -296,3 +296,10 @@ void syntaxError(int k, long int l = 0,string s = "") {
 	}
 }
 ```
+
+### [part 1 全局总览](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap1.md)
+### [part 2 辅助函数](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap2.md)
+### [part 3 词法分析](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap3.md)
+### [part 4 语法分析](https://github.com/djh-sudo/Interpreter/blob/main/Method/Chap4.md)
+### to be continue...
+# Thanks for watching ...

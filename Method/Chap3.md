@@ -1,4 +1,4 @@
-# Part 2
+# Part 3
 # 词法分析器(`Lexical analyzer`)
 
 我们需要对输入的字符串文本，拆分，得到一个个打好标签的`token`

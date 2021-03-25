@@ -32,10 +32,10 @@ double term() {
 	}
 	return t1;											//返回计算结果
 }
-```C
+```
 * 2.`factor`函数
 对于各个因子进行处理，这里包括类型有`(expression)|number|function|var`
-```
+```C
 	double f1 = 0;
 	if (current_token == "(") {								//匹配到左括号
 		checkMatch("(");

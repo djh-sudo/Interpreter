@@ -19,15 +19,10 @@ public:
     friend void syntaxError(int k, long int l,string s);
 
 private slots:
-    void Checkdef();//def
-    void Checkregister();//return
-    void Checkregister1();//if
-    void Checkregister2();//else
-    void Checkregister3();//while
-    void Checkregister4();//for
+    void Check();//def
+    void Checkregister();
     void Checkequal();//=
     void Checkmark();//"
-    void Checkmark1();//;
 
 
 private:

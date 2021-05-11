@@ -57,28 +57,28 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
     switch (k)
     {
     case 1: {
-        res += "Error [Line:" + QString::number(line,10)+ + "] " + QString::fromStdString(s) + " is invalid symbol.\n";
+        res += "\nError [Line:" + QString::number(line,10)+ + "] " + QString::fromStdString(s) + " is invalid symbol.\n";
         flag = 1;
         break;
         //        cout << "Error [Line:" << line << "] " << s << " is invalid symbol." << endl;
         //        exit(1);
     }
     case 2: {// 多行注释缺少边界
-        res+= "Error [Line:" +QString::number(line,10)+"] Multi-line comments are missing boundaries.\n";
+        res+= "\nError [Line:" +QString::number(line,10)+"] Multi-line comments are missing boundaries.\n";
         flag = 2;
         break;
         //        cout << "Error [Line:" << line << "] Multi-line comments are missing boundaries." << endl;
         //        exit(1);
     }
     case 3: {// 字符串缺少边界
-        res+="Warning [Line:" + QString::number(line) + "] String is missing boundaries.\n";
+        res+="\nWarning [Line:" + QString::number(line) + "] String is missing boundaries.\n";
         //        cout << "Warning [Line:" << line << "] String is missing boundaries." << endl;
         flag = 3;
         break;
         //        exit(1);
     }
     case 4: {
-        res+="Error [Line:" + QString::number(line) +"] The comment does not meet the specification.\n";
+        res+="\nError [Line:" + QString::number(line) +"] The comment does not meet the specification.\n";
         flag = 4;
         break;
         //注释不符合规范
@@ -86,21 +86,21 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
         //exit(1);
     }
     case 5: {//缺少匹配符号
-        res+="Error [Line:" + QString::number(line) + "] Expected the symbol '" + QString::fromStdString(s)+ "',but not have.\n";
+        res+="\nError [Line:" + QString::number(line) + "] Expected the symbol '" + QString::fromStdString(s)+ "',but not have.\n";
         //        cout << "Error [Line:" << line << "] Expected the symbol '" << s << "',but not have." << endl;
         //        exit(1);
         flag = 5;
         break;
     }
     case 6: {
-        res += "Error [Line:" + QString::number(line) + "] Divisor cannot be 0.\n";
+        res += "\nError [Line:" + QString::number(line) + "] Divisor cannot be 0.\n";
         flag = 6;
         break;
         //        cout << "Error [Line:" << line << "] Divisor cannot be 0." << endl;
         //        exit(1);
     }
     case 7: {
-        res += "Error [Line:"+QString::number(line) + "] " + QString::fromStdString(s) + " defination is duplicated!\n";
+        res += "\nError [Line:"+QString::number(line) + "] " + QString::fromStdString(s) + " defination is duplicated!\n";
         flag = 7;
         break;
         //        cout << "Error [Line:" << line << "] " << s << " defination is duplicated!" << endl;
@@ -108,7 +108,7 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
     }
     case 8:
     {
-        res +="Error [Line:" +QString::number(line) + "] function '" + QString::fromStdString(s) + "' is not defined!\n";
+        res +="\nError [Line:" +QString::number(line) + "] function '" + QString::fromStdString(s) + "' is not defined!\n";
         flag = 8;
         break;
         //        cout << "Error [Line:" << line << "] function '" << s << "' is not defined!" << endl;
@@ -116,33 +116,33 @@ void syntaxError(int k, long int l,string s) {//错误接管函数
         //找不到函数def
     }
     case 9: {
-        res += "Error [Line:" +QString::number(line) + "] " +QString::fromStdString(s) + " is not inicialized or can't find.\n";
+        res += "\nError [Line:" +QString::number(line) + "] " +QString::fromStdString(s) + " is not inicialized or can't find.\n";
         flag = 9;
         break;
         //        cout << "Error [Line:" << line << "] " << s << " is not inicialized or can't find." << endl;
         //        exit(1);
     }
     case 10: {
-        res +="Warning [Line:" +QString::number(line) + "] " +QString::fromStdString(s) + " is not used.";
+        res +="\nWarning [Line:" +QString::number(line) + "] " +QString::fromStdString(s) + " is not used.";
         break;
         //        cout << "Warning [Line:" << line << "] " << s << " is not used." << endl;
     }
     case 11: {
-        res += "Error [Line:" +QString::number(line) + "] The formal and actual parameters do not match.\n";
+        res += "\nError [Line:" +QString::number(line) + "] The formal and actual parameters do not match.\n";
         flag = 11;
         break;
         //        cout << "Error [Line:" << line << "] The formal and actual parameters do not match." << endl;
         //        exit(1);
     }
     case 12: {
-        res += "Error [Line:" +QString::number(line) + "] Can't reload the registered function " +QString::fromStdString(s)+"\n";
+        res += "\nError [Line:" +QString::number(line) + "] Can't reload the registered function " +QString::fromStdString(s)+"\n";
         flag = 12;
         break;
         //        cout << "Error [Line:" << line << "] Can't reload the registered function " << s << endl;
         //        exit(1);
     }
     case 13:{
-        res +="Warning [Line:" +QString::number(line) + "] function with no statement 'return'. \n";
+        res +="\nWarning [Line:" +QString::number(line) + "] function with no statement 'return'. \n";
         break;
     }
     default:
